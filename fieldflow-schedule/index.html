@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FieldFlow · Contractor scheduling MVP</title>
+    <meta name="description" content="FieldFlow scheduling and client management MVP" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="brand"><span class="brand-mark">F</span><span>FieldFlow</span><span class="mvp-pill">MVP</span></div>
+        <div class="business-lock"><span class="lock-icon">▣</span><div><strong id="businessName">Bright Spark Electric</strong><small>Locked business workspace</small></div></div>
+        <nav class="nav-list">
+          <button class="nav-item active" data-view="dashboard"><span>⌂</span> Dashboard</button>
+          <button class="nav-item" data-view="calendar"><span>▦</span> Calendar</button>
+          <button class="nav-item" data-view="clients"><span>◉</span> Clients</button>
+          <button class="nav-item" data-view="jobs"><span>▤</span> Jobs</button>
+          <button class="nav-item" data-view="business"><span>⚙</span> Business</button>
+        </nav>
+        <div class="sidebar-footer"><div class="avatar">TS</div><div><strong>Tariq Silva</strong><small>Owner · Starter plan</small></div><button class="icon-button" aria-label="Account menu">•••</button></div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="mobile-menu icon-button" aria-label="Open navigation">☰</button>
+          <div class="breadcrumb"><span id="pageEyebrow">Overview</span><span>/</span><strong id="pageTitle">Dashboard</strong></div>
+          <div class="top-actions"><label class="global-workspace-label" for="globalBusinessSelect">Workspace</label><select id="globalBusinessSelect" class="global-business-select" aria-label="Switch business workspace"></select><span class="secure-note">▣ Your workspace is private</span><button class="icon-button" aria-label="Notifications">♢<span class="notification-dot"></span></button></div>
+        </header>
+        <section id="app" class="page" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <div id="modalRoot"></div>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
