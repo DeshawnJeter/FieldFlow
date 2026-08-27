@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>FieldFlow | Customer Analytics</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>FieldFlow</h1>
+    <p>Customer Analytics</p>
+  </header>
+
+  <main>
+   <section>
+  <h2>Weekly Business Snapshot</h2>
+  <p id="week-range">Week view will appear after selecting a company.</p>
+  <p>See your work order activity and operational metrics at a glance.</p>
+  <div class="company-selector">
+  <label for="company-select">Select Company:</label>
+  <select id="company-select">
+    <option value="">Choose a company</option>
+  </select>
+</div>
+<div class="week-selector">
+  <label for="week-select">Select Week:</label>
+  <select id="week-select">
+    <option value="">Latest week</option>
+  </select>
+  <p id="week-range"></p>
+</div>
+<p id="company-data-note">Detailed company metrics will populate when full analytics data is available.</p>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <h3>Total Work Orders</h3>
+      <p id="total-work-orders">0</p>
+    </div>
+    
+    <div class="metric-card">
+      <h3>Total Labor Hours</h3>
+      <p id="total-labor-hours">0</p>
+    </div>
+    
+    <div class="metric-card">
+      <h3>Total Estimated Cost</h3>
+      <p id="total-estimated-cost">0</p>
+    </div>
+   <div class="metric-card">
+  <h3>Total Actual Cost</h3>
+  <p id="total-actual-cost">$0.00</p>
+</div 
+   <div class="metric-card">
+  <h3>Cost Variance</h3>
+  <p id="cost-variance">$0.00</p>
+</div>
+<div class="metric-card">
+  <h3>Completion Rate</h3>
+  <p id="completion-rate">0%</p>
+</div>
+    <div class="metric-card">
+      <h3>Routine Priority Work Orders</h3>
+      <p id="routine-priority-work-orders">0</p>
+    </div>
+    <div class="metric-card">
+  <h3>Average Cost per Work Order</h3>
+  <p id="average-cost-per-work-order">$0.00</p>
+</div>
+<div class="metric-card">
+  <h3>Average Labor Hours per Work Order</h3>
+  <p id="average-labor-hours">0.00</p>
+</div>
+<div class="metric-card">
+  <h3>Total Due</h3>
+  <p id="total-due">$0.00</p>
+</div>
+
+<div class="metric-card">
+  <h3>Total Collected</h3>
+  <p id="total-collected">$0.00</p>
+</div>
+
+<div class="metric-card">
+  <h3>Outstanding Balance</h3>
+  <p id="outstanding-balance">$0.00</p>
+</div>
+  </div>
+  <section class="analytics-tools">
+  <div class="analytics-tools-header">
+    <div>
+      <h3>Operational Insights</h3>
+      <p>Filter work orders and explore key performance patterns.</p>
+    </div>
+    <button id="reset-detail-filters" type="button">Reset Filters</button>
+  </div>
+  
+  <div class="analytics-filter-grid">
+    <label>
+      Priority
+      <select id="priority-filter">
+        <option value="">All priorities</option>
+      </select>
+    </label>
+    
+    <label>
+      Job Type
+      <select id="job-type-filter">
+        <option value="">All job types</option>
+      </select>
+    </label>
+    
+    <label>
+      Technician
+      <select id="technician-filter">
+        <option value="">All technicians</option>
+      </select>
+    </label>
+    
+    <label>
+      Invoice Status
+      <select id="invoice-status-filter">
+        <option value="">All invoice statuses</option>
+      </select>
+    </label>
+    
+    <label>
+      Customer Rating
+      <select id="rating-filter">
+        <option value="">All ratings</option>
+      </select>
+    </label>
+    
+    <label>
+      Follow-Up
+      <select id="follow-up-filter">
+        <option value="">All work orders</option>
+        <option value="needed">Follow-up needed</option>
+        <option value="none">No follow-up needed</option>
+      </select>
+    </label>
+  </div>
+  
+  <div class="analytics-visual-grid">
+    <article class="analytics-visual-card">
+      <h4>Invoice Status</h4>
+      <div id="invoice-status-chart" class="chart-area">
+        Select a company to view invoice status.
+      </div>
+    </article>
+    
+    <article class="analytics-visual-card">
+  <h4>Customer Feedback</h4>
+  
+  <div class="customer-feedback-summary">
+    <p><strong>Average Rating:</strong> <span id="average-rating">N/A</span></p>
+    <p><strong>Rated Work Orders:</strong> <span id="rated-work-orders">N/A</span></p>
+  </div>
+  
+  <div id="customer-rating-chart" class="chart-area">
+    Select a company to view customer feedback.
+  </div>
+</article>
+  </div>
+</section>
+
+  <div class="project-summary">
+
+  
+  <div>
+    <h3>Completed Work Orders</h3>
+    <p id="completed-work-orders">0%</p>
+  </div>
+  <div>
+  <h3>Scheduled Work Orders</h3>
+  <p id="scheduled-jobs">0</p>
+</div>
+<div>
+  <h3>Canceled Work Orders</h3>
+  <p id="canceled-jobs">0</p>
+</div>
+<div>
+  <h3>Cancellation Rate</h3>
+  <p id="canceled-rate">0%</p>
+</div>
+</div>
+<div>
+  <h3>Job Type Breakdown</h3>
+  <div id="job-type-breakdown" class="chart-area">
+  Loading...
+</div>
+</div>
+<h3>Client Activity</h3>
+<p id="client-activity">Select a company to view client activity.</p>
+<h3>Recent Job Activity — Year to Date</h3>
+<p id="fieldflow-jobs">Loading...</p>
+</section>
+<section class="work-order-details">
+  <h3>Work Order Details & Follow-Up</h3>
+  
+  <div class="work-order-table-wrap">
+    <table class="work-order-table">
+      <thead>
+        <tr>
+          <th>Work Order #</th>
+          <th>Technician</th>
+          <th>Invoice Status</th>
+          <th>Customer Rating</th>
+          <th>Follow-Up Date</th>
+          <th>Follow-Up Notes</th>
+        </tr>
+      </thead>
+      <tbody id="work-order-details-body">
+        <tr>
+          <td colspan="6">Select a company to view work order details.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+  </main>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="data.js"></script>
+<script src="companies.js"></script>
+<script src="fieldflow_product_d_data.js"></script>
+  <script src="script.js?v=2"></script>
+</body>
+</html>
