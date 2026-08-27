@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FieldFlow Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <span class="eyebrow">Internal ops &middot; FieldFlow team view</span>
+      <h1>FieldFlow work order dashboard</h1>
+      <p>7,534 work orders across 25 subscribing home-service businesses</p>
+    </div>
+    <div class="asof" id="asof"></div>
+  </header>
+
+  <div class="filters">
+    <div class="grp">
+      <label for="f-business">Business</label>
+      <select id="f-business"></select>
+    </div>
+    <div class="grp">
+      <label for="f-trade">Trade</label>
+      <select id="f-trade"></select>
+    </div>
+    <div class="grp">
+      <label for="f-plan">Plan</label>
+      <select id="f-plan"></select>
+    </div>
+    <div class="grp preset-group" id="date-presets">
+      <button class="preset-btn" data-preset="30">Last 30 days</button>
+      <button class="preset-btn" data-preset="90">Last 90 days</button>
+      <button class="preset-btn active" data-preset="all">All time</button>
+    </div>
+    <div class="spacer"></div>
+    <button class="reset-btn" id="reset-filters">Reset filters</button>
+  </div>
+
+  <section class="card" id="usage-alerts-card" style="margin-bottom:20px;">
+    <h2>Usage alerts <span id="usage-alerts-count" class="alert-count"></span></h2>
+    <p class="card-sub">Businesses whose job volume dropped 15%+ in the last 30 days vs. the previous 30 — flagged early so the team can reach out before they churn.</p>
+    <div id="usage-alerts"></div>
+  </section>
+
+  <section class="kpis" id="kpis">
+    <div class="tile"><div class="label">Total jobs</div><div class="value" id="k-total">–</div><div class="sub" id="k-total-sub"></div></div>
+    <div class="tile"><div class="label">Completed rate</div><div class="value" id="k-completed">–</div><div class="sub" id="k-completed-sub"></div></div>
+    <div class="tile"><div class="label">Revenue collected</div><div class="value" id="k-revenue">–</div><div class="sub" id="k-revenue-sub"></div></div>
+    <div class="tile"><div class="label">Outstanding balance</div><div class="value" id="k-outstanding">–</div><div class="sub" id="k-outstanding-sub"></div></div>
+    <div class="tile"><div class="label">Avg customer rating</div><div class="value" id="k-rating">–</div><div class="sub" id="k-rating-sub"></div></div>
+    <div class="tile"><div class="label">Repeat clients</div><div class="value" id="k-repeat">–</div><div class="sub" id="k-repeat-sub"></div></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Revenue collected by business</h2>
+      <p class="card-sub">Sum of total paid to date</p>
+      <div id="chart-revenue"></div>
+    </div>
+    <div class="card">
+      <h2>Jobs by trade</h2>
+      <p class="card-sub">Work order count</p>
+      <div id="chart-trade"></div>
+    </div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Job volume over time</h2>
+      <p class="card-sub">Work orders per month, by job date</p>
+      <div id="chart-trend"></div>
+    </div>
+    <div class="card">
+      <h2>Invoice status</h2>
+      <p class="card-sub">Billing state across scoped jobs</p>
+      <div id="chart-invoice"></div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-bottom:20px;">
+    <h2>Revenue collected over time</h2>
+    <p class="card-sub">Total paid to date per month, by job date</p>
+    <div id="chart-revenue-trend"></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Jobs by priority</h2>
+      <p class="card-sub">Emergency vs. routine vs. scheduled maintenance</p>
+      <div id="chart-priority"></div>
+    </div>
+    <div class="card">
+      <h2>Top technicians</h2>
+      <p class="card-sub">By completed jobs in current filter</p>
+      <div id="chart-techs"></div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-bottom:12px;">
+    <h2>Revenue by plan tier</h2>
+    <p class="card-sub">Sum of total paid to date, by FieldFlow subscription plan</p>
+    <div id="chart-plan"></div>
+  </section>
+
+  <section class="card" id="job-workflow-card" style="margin-bottom:20px;">
+    <h2>Create & track a job</h2>
+    <form id="job-form" style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+      <input type="text" id="job-title" placeholder="Job title" required>
+      <input type="text" id="job-client" placeholder="Client name" required>
+      <input type="date" id="job-date" required>
+      <button type="submit">Create job</button>
+    </form>
+    <div id="job-list"></div>
+  </section>
+
+  <section class="table-card">
+    <div class="table-head">
+      <h2>Work orders</h2>
+      <input type="search" id="f-search" placeholder="Search client, technician, address…" style="font:inherit;font-size:13px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--page);color:var(--text-primary);min-width:240px;">
+    </div>
+    <div class="table-scroll">
+      <table class="data" id="data-table">
+        <thead>
+          <tr>
+            <th data-key="work_order_number">Work order</th>
+            <th data-key="job_date">Date</th>
+            <th data-key="business_name">Business</th>
+            <th data-key="trade">Trade</th>
+            <th data-key="job_type">Job type</th>
+            <th data-key="technician_name">Technician</th>
+            <th data-key="client_name">Client</th>
+            <th data-key="status">Status</th>
+            <th data-key="invoice_status">Invoice</th>
+            <th data-key="total_due" class="num">Total due</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <div class="table-head" style="margin-top:10px;margin-bottom:0;">
+      <span id="table-count" style="font-size:12.5px;color:var(--text-muted);"></span>
+      <div class="pager">
+        <button id="pg-prev">Prev</button>
+        <span id="pg-label">Page 1</span>
+        <button id="pg-next">Next</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script type="module" src="app.js"></script>
+<script type="module" src="js/job-workflow.js"></script>
+</body>
+</html>
