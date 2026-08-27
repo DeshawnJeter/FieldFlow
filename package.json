@@ -1,0 +1,12 @@
+{
+  "name": "fieldflow-chatbot",
+  "version": "1.0.0",
+  "description": "FieldFlow Onboarding & Support Chatbot — Product C",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
